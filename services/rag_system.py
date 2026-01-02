@@ -2,14 +2,14 @@ from langgraph.graph import StateGraph, END
 
 
 class RagSystem:
-    """Handles retrieval dan answer generation workflow"""
+    """Handles retrieval and answer generation workflow"""
     
     def __init__(self, document_store):
         self.document_store = document_store
         self.chain = self._build_workflow()
     
     def _build_workflow(self):
-        """Build LangGraph workflow"""
+        """Build LangGraph"""
         workflow = StateGraph(dict)
         workflow.add_node("retrieve", self._retrieve_step)
         workflow.add_node("answer", self._answer_step)
@@ -26,11 +26,11 @@ class RagSystem:
         return state
     
     def _answer_step(self, state: dict) -> dict:
-        """Step 2: Generate answer dari context"""
+        """Step 2: Generate answer from context"""
         context = state["context"]
         
         if context:
-            # Ambil snippet dari dokumen pertama
+            # Take snippet from the first document
             answer = f"I found this: '{context[0][:100]}...'"
         else:
             answer = "Sorry, I don't know."
@@ -39,6 +39,6 @@ class RagSystem:
         return state
     
     def ask(self, question: str) -> dict:
-        """Execute workflow untuk answer question"""
+        """Execute workflow to answer question"""
         result = self.chain.invoke({"question": question})
         return result

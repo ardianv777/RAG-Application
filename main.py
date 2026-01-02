@@ -8,9 +8,9 @@ from services.rag_system import RagSystem
 
 
 # Initialize services
-embedding_service = Embedding(vector_size=128)
-document_store = DocumentStore(embedding_service)
-rag_workflow = RagSystem(document_store)
+embedding = Embedding(vector_size=128)
+document_store = DocumentStore(embedding)
+rag_system = RagSystem(document_store)
 
 # FastAPI app
 app = FastAPI(title="Learning RAG Demo")
@@ -28,11 +28,11 @@ class DocumentRequest(BaseModel):
 # Endpoints
 @app.post("/ask")
 def ask_question(req: QuestionRequest):
-    """Ask a question dan get answer dari RAG system"""
+    """Add a new document to the system"""
     start = time.time()
     
     try:
-        result = rag_workflow.ask(req.question)
+        result = rag_system.ask(req.question)
         
         return {
             "question": req.question,
@@ -46,7 +46,7 @@ def ask_question(req: QuestionRequest):
 
 @app.post("/add")
 def add_document(req: DocumentRequest):
-    """Add dokumen baru ke system"""
+    """Add a new document to the system"""
     try:
         doc_id = document_store.add_document(req.text)
         return {"id": doc_id, "status": "added"}
@@ -56,10 +56,10 @@ def add_document(req: DocumentRequest):
 
 @app.get("/status")
 def status():
-    """Check system status"""
+    """Get system status"""
     store_status = document_store.get_status()
     
     return {
         **store_status,
-        "graph_ready": rag_workflow.chain is not None
+        "graph_ready": rag_system.chain is not None
     }
