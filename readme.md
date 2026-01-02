@@ -12,7 +12,7 @@ A Retrieval-Augmented Generation (RAG) application built with FastAPI, LangGraph
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/ardianv777/RAG-Application.git
 cd RAG-Application
 ```
 
