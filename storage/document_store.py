@@ -25,7 +25,7 @@ class DocumentStore:
     
     def add_document(self, text: str) -> int:
         """Add a new document to the store"""
-        embedding = self.embedding_service.embed(text)
+        embedding = self.embedding_service.fake_embed(text)
         doc_id = len(self.docs_memory)
         
         if self.using_qdrant:
@@ -44,7 +44,7 @@ class DocumentStore:
     
     def search_documents(self, query: str, limit=2) -> list[str]:
         """Search for documents relevant to the query"""
-        query_embedding = self.embedding_service.embed(query)
+        query_embedding = self.embedding_service.fake_embed(query)
         results = []
         
         if self.using_qdrant:
