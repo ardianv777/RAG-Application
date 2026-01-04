@@ -13,24 +13,27 @@ Sistem Retrieval-Augmented Generation (RAG) sederhana yang dibangun dengan FastA
 ## Struktur Proyek
 
 ```
-rag-demo/
-├── app/
-│   ├── api/
-│   │   └── endpoints.py          # Handler rute API
-│   ├── services/
-│   │   ├── embedding_service.py  # Pembuatan embedding teks
-│   │   └── rag_workflow.py       # Logika alur kerja RAG
-│   ├── storage/
-│   │   └── document_store.py     # Manajemen penyimpanan dokumen
-│   ├── main.py                   # Titik masuk aplikasi
-│   └── models.py                 # Model Pydantic
-├── notes.md                      # Penjelasan refactoring
-├── requirements.txt
-└── README.md
+RAG APPLICATION/
+├── api/
+│   ├── __pycache__/
+│   └── endpoints.py          # Handler endpoint API RAG
+├── services/
+│   ├── __pycache__/
+│   ├── embedding.py          # Pembuatan embedding teks
+│   └── rag_system.py         # Logika alur kerja sistem RAG
+├── storage/
+│   ├── __pycache__/
+│   └── document_store.py     # Manajemen penyimpanan dokumen
+├── __pycache__/
+├── assignment.md             # Instruksi / soal tugas
+├── main.py                   # App Launcher
+├── models.py                 # Model Pydantic / skema data
+├── notes.md                  # Catatan & penjelasan
+├── readme.md                 # Dokumentasi proyek
+└── requirements.txt          # Daftar dependency
 ```
 
-## Kebutuhan Sistem
-
+## Requirements
 - Python 3.8+
 - FastAPI
 - Uvicorn
@@ -238,9 +241,9 @@ Saat ini tidak ada tes otomatis. Struktur dirancang untuk mudah diuji, setiap ko
 
 ### Menambah Fitur Baru
 
-- **Endpoint baru:** Tambahkan ke `app/api/endpoints.py`
-- **Services baru:** Buat di `app/services/`
-- **Backend storage baru:** Perluas `app/storage/document_store.py`
+- **Endpoint baru:** Tambahkan ke `api/endpoints.py`
+- **Services baru:** Buat di `services/`
+- **Backend storage baru:** Perluas `storage/document_store.py`
 
 ## Catatan
 
