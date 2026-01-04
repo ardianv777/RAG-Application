@@ -3,7 +3,7 @@ from qdrant_client.models import PointStruct, VectorParams, Distance
 
 
 class DocumentStore:
-    """Simple document store with Qdrant integration and in-memory fallback"""
+    """penyimpanan dokumen sederhana dengan integrasi Qdrant dan fallback in-memory"""
     
     def __init__(self, embedding_service, qdrant_url="http://localhost:6333"):
         self.embedding_service = embedding_service
@@ -24,7 +24,7 @@ class DocumentStore:
             self.using_qdrant = False
     
     def add_document(self, text: str) -> int:
-        """Add a new document to the store"""
+        """Function untuk menambahkan dokumen baru ke penyimpanan"""
         embedding = self.embedding_service.fake_embed(text)
         doc_id = len(self.docs_memory)
         
@@ -43,7 +43,7 @@ class DocumentStore:
         return doc_id
     
     def search_documents(self, query: str, limit=2) -> list[str]:
-        """Search for documents relevant to the query"""
+        """Function untuk mencari dokumen yang relevan dengan query"""
         query_embedding = self.embedding_service.fake_embed(query)
         results = []
         
@@ -67,7 +67,7 @@ class DocumentStore:
         return results
     
     def get_status(self) -> dict:
-        """Return status of the document store"""
+        """Function untuk mengembalikan nilai status penyimpanan dokumen"""
         return {
             "qdrant_ready": self.using_qdrant,
             "in_memory_docs_count": len(self.docs_memory)

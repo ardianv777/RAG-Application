@@ -7,7 +7,7 @@ from api.endpoints import RagEndpoints
 
 
 def create_app() -> FastAPI:
-    """Factory function to create FastAPI app"""
+    """Function untuk membuat dan mengkonfigurasi FastAPI app"""
     
     # Initialize services
     embedding_service = Embedding(vector_size=128)

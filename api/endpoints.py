@@ -5,7 +5,7 @@ from models import (QuestionRequest, QuestionResponse, DocumentRequest, Document
 
 
 class RagEndpoints:
-    """Handler for all RAG API endpoints"""
+    """Handler untuk semua RAG API endpoints"""
     
     def __init__(self, document_store, rag_workflow):
         self.document_store = document_store
@@ -13,7 +13,7 @@ class RagEndpoints:
         self.router = self._create_router()
     
     def _create_router(self):
-        """Setup API routes"""
+        """API routes"""
         router = APIRouter()
         
         router.add_api_route("/ask", self.ask_question, methods=["POST"])
@@ -23,7 +23,7 @@ class RagEndpoints:
         return router
     
     def ask_question(self, req: QuestionRequest) -> QuestionResponse:
-        """Ask a question and get answer from RAG system"""
+        """function untuk memberikan pertanyaan dan dapatkan jawaban dari sistem RAG"""
         start = time.time()
         
         try:
@@ -39,7 +39,7 @@ class RagEndpoints:
             raise HTTPException(status_code=500, detail=str(e))
     
     def add_document(self, req: DocumentRequest) -> DocumentResponse:
-        """Add new document to the system"""
+        """function untuk menambahkan dokumen baru ke penyimpanan"""
         try:
             doc_id = self.document_store.add_document(req.text)
             return DocumentResponse(id=doc_id, status="added")
@@ -47,7 +47,7 @@ class RagEndpoints:
             raise HTTPException(status_code=500, detail=str(e))
     
     def status(self) -> StatusResponse:
-        """Check system status"""
+        """function untuk cek system status"""
         store_status = self.document_store.get_status()
         
         return StatusResponse(

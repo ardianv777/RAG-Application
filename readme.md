@@ -1,35 +1,35 @@
-# RAG Demo Application
+# Aplikasi Demo RAG
 
-A simple Retrieval-Augmented Generation (RAG) system built with FastAPI, LangGraph, and Qdrant. This application allows you to store documents and ask questions, with the system retrieving relevant information to generate answers.
+Sistem Retrieval-Augmented Generation (RAG) sederhana yang dibangun dengan FastAPI, LangGraph, dan Qdrant. Aplikasi ini memungkinkan user menyimpan dokumen dan memberikan pertanyaan dengan sistem mengambil informasi relevan untuk menghasilkan jawaban.
 
-## Features
+## Fitur
 
-- 📄 Add documents to the system
-- 🔍 Ask questions and get relevant answers
-- 💾 Dual storage mode: Qdrant vector database or in-memory fallback
-- ⚡ Fast response with workflow orchestration using LangGraph
-- 🎯 Clean architecture with separation of concerns
+- 📄 Tambahkan dokumen ke sistem
+- 🔍 Berikan pertanyaan dan dapatkan jawaban yang relevan
+- 💾 2 Mode penyimpanan: database vektor Qdrant atau fallback in-memory
+- ⚡ Respons cepat dengan pengelolaan alur kerja menggunakan LangGraph
+- 🎯 Arsitektur bersih dengan pemisahan tugas yang jelas
 
-## Project Structure
+## Struktur Proyek
 
 ```
 rag-demo/
 ├── app/
 │   ├── api/
-│   │   └── endpoints.py          # API route handlers
+│   │   └── endpoints.py          # Handler rute API
 │   ├── services/
-│   │   ├── embedding_service.py  # Text embedding generation
-│   │   └── rag_workflow.py       # RAG workflow logic
+│   │   ├── embedding_service.py  # Pembuatan embedding teks
+│   │   └── rag_workflow.py       # Logika alur kerja RAG
 │   ├── storage/
-│   │   └── document_store.py     # Document storage management
-│   ├── main.py                   # Application entry point
-│   └── models.py                 # Pydantic models
-├── notes.md                      # Refactoring explanation
+│   │   └── document_store.py     # Manajemen penyimpanan dokumen
+│   ├── main.py                   # Titik masuk aplikasi
+│   └── models.py                 # Model Pydantic
+├── notes.md                      # Penjelasan refactoring
 ├── requirements.txt
 └── README.md
 ```
 
-## Requirements
+## Kebutuhan Sistem
 
 - Python 3.8+
 - FastAPI
@@ -38,59 +38,59 @@ rag-demo/
 - LangGraph
 - Qdrant Client
 
-## Installation
+## Instalasi
 
-### 1. Install Dependencies
+### 1. Instal Dependensi
 
 ```bash
 pip install fastapi uvicorn pydantic langgraph qdrant-client
 ```
 
-Or install from requirements.txt:
+Atau instal dari requirements.txt:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. (Optional) Run Qdrant
+### 2. (Opsional) Jalankan Qdrant
 
-If you want to use Qdrant vector database instead of in-memory storage:
+Jika ingin menggunakan database vektor Qdrant daripada penyimpanan in-memory:
 
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
-**Note:** If Qdrant is not available, the application will automatically fall back to in-memory storage.
+**Catatan:** Jika Qdrant tidak tersedia, aplikasi akan secara otomatis menggunakan penyimpanan in-memory.
 
-## How to Run
+## Cara Menjalankan
 
-Start the application with Uvicorn:
+Mulai aplikasi dengan Uvicorn:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The API will be available at: `http://localhost:8000`
+API akan tersedia di: `http://localhost:8000`
 
-**API Documentation:**
-- Swagger UI: `http://localhost:8000/docs` - Interactive interface to test API endpoints directly
-- ReDoc: `http://localhost:8000/redoc` - Clean documentation interface
+**Dokumentasi API:**
+- Swagger UI: `http://localhost:8000/docs` - Interface interaktif untuk menguji endpoint API secara langsung
+- ReDoc: `http://localhost:8000/redoc` - Interface dokumentasi yang bersih
 
-**Note:** You can use either `/docs` or `/redoc` to interact with the API without using curl commands. Simply open the URL in your browser, and you can test all endpoints interactively.
+**Catatan:** User dapat menggunakan `/docs` atau `/redoc` untuk berinteraksi dengan API tanpa perintah curl. Cukup buka URL di browser user dan user dapat menguji semua endpoint secara interaktif.
 
-## API Endpoints
+## Endpoint API
 
-### 1. Check System Status
+### 1. Periksa Status Sistem
 
 **GET** `/status`
 
-Check if the system is ready and which storage mode is active.
+Periksa apakah sistem siap dan mode penyimpanan mana yang aktif.
 
 ```bash
 curl http://localhost:8000/status
 ```
 
-**Response:**
+**Respons:**
 ```json
 {
   "qdrant_ready": true,
@@ -99,19 +99,19 @@ curl http://localhost:8000/status
 }
 ```
 
-### 2. Add Document
+### 2. Tambah Dokumen
 
 **POST** `/add`
 
-Add a new document to the system.
+Tambahkan dokumen baru ke sistem.
 
 ```bash
 curl -X POST http://localhost:8000/add \
   -H "Content-Type: application/json" \
-  -d '{"text": "Python is a high-level programming language known for its simplicity and readability."}'
+  -d '{"text": "Python adalah bahasa pemrograman tingkat tinggi yang terkenal karena kesederhanaan dan keterbacaannya."}'
 ```
 
-**Response:**
+**Respons:**
 ```json
 {
   "id": 0,
@@ -119,145 +119,145 @@ curl -X POST http://localhost:8000/add \
 }
 ```
 
-### 3. Ask Question
+### 3. Ajukan Pertanyaan
 
 **POST** `/ask`
 
-Ask a question and get an answer based on stored documents.
+Ajukan pertanyaan dan dapatkan jawaban berdasarkan dokumen yang disimpan.
 
 ```bash
 curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is Python?"}'
+  -d '{"question": "Apa itu Python?"}'
 ```
 
-**Response:**
+**Respons:**
 ```json
 {
-  "question": "What is Python?",
-  "answer": "I found this: 'Python is a high-level programming language known for its simplicity and readability....'",
+  "question": "Apa itu Python?",
+  "answer": "I found this: 'Python adalah bahasa pemrograman tingkat tinggi yang terkenal karena kesederhanaan dan keterbacaannya....'",
   "context_used": [
-    "Python is a high-level programming language known for its simplicity and readability."
+    "Python adalah bahasa pemrograman tingkat tinggi yang terkenal karena kesederhanaan dan keterbacaannya."
   ],
   "latency_sec": 0.045
 }
 ```
 
-## Usage Example
+## Contoh Penggunaan
 
-### Method 1: Using Interactive Documentation (Recommended for Beginners)
+### Metode 1: Menggunakan Dokumentasi Interaktif (Rekomendasi untuk Pemula)
 
-1. **Start the application:**
+1. **Mulai aplikasi:**
    ```bash
    uvicorn app.main:app --reload
    ```
 
-2. **Open Swagger UI in your browser:**
+2. **Buka Swagger UI di browser:**
    ```
    http://localhost:8000/docs
    ```
 
-3. **Test the endpoints interactively:**
-   - Click on any endpoint (e.g., `/add`)
-   - Click "Try it out"
-   - Fill in the request body
-   - Click "Execute"
-   - See the response immediately
+3. **Uji endpoint secara interaktif:**
+   - Klik pada endpoint apa pun (misalnya, `/add`)
+   - Klik "Try it out"
+   - Isi badan permintaan
+   - Klik "Execute"
+   - Lihat respons segera
 
-**Or use ReDoc for a cleaner view:**
+**Atau gunakan ReDoc untuk tampilan yang lebih bersih:**
    ```
    http://localhost:8000/redoc
    ```
 
-### Method 2: Using cURL Commands
+### Metode 2: Menggunakan Perintah cURL
 
-If you prefer command line:
+Jika lebih suka command line:
 
-1. **Start the application:**
+1. **Mulai aplikasi:**
    ```bash
    uvicorn app.main:app --reload
    ```
 
-2. **Add some documents:**
+2. **Tambahkan beberapa dokumen:**
    ```bash
-   # Add document about Python
+   # Tambah dokumen tentang Python
    curl -X POST http://localhost:8000/add \
      -H "Content-Type: application/json" \
-     -d '{"text": "Python is a programming language created by Guido van Rossum in 1991."}'
+     -d '{"text": "Python adalah bahasa pemrograman yang dibuat oleh Guido van Rossum pada tahun 1991."}'
    
-   # Add document about FastAPI
+   # Tambah dokumen tentang FastAPI
    curl -X POST http://localhost:8000/add \
      -H "Content-Type: application/json" \
-     -d '{"text": "FastAPI is a modern web framework for building APIs with Python."}'
+     -d '{"text": "FastAPI adalah framework web modern untuk membangun API dengan Python."}'
    ```
 
-3. **Ask questions:**
+3. **Ajukan pertanyaan:**
    ```bash
-   # Ask about Python
+   # Tanya tentang Python
    curl -X POST http://localhost:8000/ask \
      -H "Content-Type: application/json" \
-     -d '{"question": "Who created Python?"}'
+     -d '{"question": "Siapa yang membuat Python?"}'
    
-   # Ask about FastAPI
+   # Tanya tentang FastAPI
    curl -X POST http://localhost:8000/ask \
      -H "Content-Type: application/json" \
-     -d '{"question": "What is FastAPI?"}'
+     -d '{"question": "Apa itu FastAPI?"}'
    ```
 
-4. **Check the status:**
+4. **Periksa status:**
    ```bash
    curl http://localhost:8000/status
    ```
 
-## Architecture
+## Arsitektur
 
-The application follows a clean architecture pattern with clear separation of concerns:
+Aplikasi mengikuti pola arsitektur bersih dengan pemisahan tanggung jawab yang jelas:
 
-- **API Layer** (`app/api/`): Handles HTTP requests and responses
-- **Services Layer** (`app/services/`): Contains business logic (embeddings, RAG workflow)
-- **Storage Layer** (`app/storage/`): Manages data persistence
-- **Models** (`app/models.py`): Defines data structures and validation
+- **Folder API** (`api/`): Menangani permintaan dan respons HTTP
+- **Folder Layanan** (`services/`): Berisi logika bisnis (embedding, alur kerja RAG)
+- **Folder Penyimpanan** (`storage/`): Mengelola penyimpanan data
+- **Model** (`models.py`): Mendefinisikan struktur data dan validasi
 
-## How It Works
+## Cara Kerjanya
 
-1. **Document Storage:** When you add a document, it's converted into a numerical vector (embedding) and stored in either Qdrant or in-memory storage.
+1. **Penyimpanan Dokumen:** Ketika user menambahkan dokumen, dokumen dikonversi menjadi vektor numerik (embedding) dan disimpan di Qdrant atau penyimpanan in-memory.
 
-2. **Question Processing:** When you ask a question:
-   - The question is converted into a vector
-   - The system searches for similar documents
-   - Relevant documents are retrieved as context
-   - An answer is generated based on the retrieved context
+2. **Pemrosesan Pertanyaan:** Ketika user memberikan pertanyaan:
+   - Pertanyaan dikonversi menjadi vektor
+   - Sistem mencari dokumen serupa
+   - Dokumen relevan diambil sebagai konteks
+   - Jawaban dihasilkan berdasarkan konteks yang diambil
 
-3. **Workflow:** LangGraph orchestrates the retrieve → answer workflow to ensure consistent processing.
+3. **Alur Kerja:** LangGraph mengelola alur kerja retrieve → answer untuk memastikan pemrosesan yang konsisten.
 
-## Development
+## Pengembangan
 
-### Running Tests
+### Menjalankan Tes
 
-Currently, there are no automated tests. The structure is designed to be easily testable, each component can be tested independently.
+Saat ini tidak ada tes otomatis. Struktur dirancang untuk mudah diuji, setiap komponen dapat diuji secara independen.
 
-### Adding New Features
+### Menambah Fitur Baru
 
-- **New endpoints:** Add to `app/api/endpoints.py`
-- **New services:** Create in `app/services/`
-- **New storage backends:** Extend `app/storage/document_store.py`
+- **Endpoint baru:** Tambahkan ke `app/api/endpoints.py`
+- **Services baru:** Buat di `app/services/`
+- **Backend storage baru:** Perluas `app/storage/document_store.py`
 
-## Notes
+## Catatan
 
-- This is a demo application using a fake embedding function for simplicity
-- For production use, replace `fake_embed()` with a real embedding model (e.g., Sentence Transformers, OpenAI embeddings)
-- The application uses a simple answer generation - in production, integrate with an LLM for better responses
+- Ini adalah aplikasi demo menggunakan fungsi embedding palsu untuk kesederhanaan
+- Untuk penggunaan produksi, ganti `fake_embed()` dengan model embedding yang ada (misalnya, Sentence Transformers, OpenAI embeddings)
+- Aplikasi menggunakan pembuatan jawaban sederhana dalam produksi, integrasikan dengan LLM untuk respons yang lebih baik
 
-## Troubleshooting
+## Pemecahan Masalah
 
-**Problem:** Qdrant connection error
+**Masalah:** Kesalahan koneksi Qdrant
 
-**Solution:** Make sure Qdrant is running on port 6333, or let the application use in-memory fallback.
+**Solusi:** Pastikan Qdrant berjalan di port 6333, atau biarkan aplikasi menggunakan fallback in-memory.
 
-**Problem:** Module not found errors
+**Masalah:** Kesalahan modul tidak ditemukan
 
-**Solution:** Make sure all dependencies are installed: `pip install -r requirements.txt`
+**Solusi:** Pastikan semua dependensi diinstal: `pip install -r requirements.txt`
 
-**Problem:** Port 8000 already in use
+**Masalah:** Port 8000 sudah digunakan
 
-**Solution:** Use a different port: `uvicorn app.main:app --port 8001`
+**Solusi:** Gunakan port berbeda: `uvicorn app.main:app --port 8001`

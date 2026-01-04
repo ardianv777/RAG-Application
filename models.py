@@ -2,17 +2,17 @@ from pydantic import BaseModel
 
 
 class QuestionRequest(BaseModel):
-    """Request model for ask endpoint"""
+    """Request model untuk ask endpoint"""
     question: str
 
 
 class DocumentRequest(BaseModel):
-    """Request model for add document endpoint"""
+    """Request model untuk add document endpoint"""
     text: str
 
 
 class QuestionResponse(BaseModel):
-    """Response model for ask endpoint"""
+    """Response model untuk ask endpoint"""
     question: str
     answer: str
     context_used: list[str]
@@ -20,13 +20,13 @@ class QuestionResponse(BaseModel):
 
 
 class DocumentResponse(BaseModel):
-    """Response model for add document endpoint"""
+    """Response model untuk add document endpoint"""
     id: int
     status: str
 
 
 class StatusResponse(BaseModel):
-    """Response model for status endpoint"""
+    """Response model untuk status endpoint"""
     qdrant_ready: bool
     in_memory_docs_count: int
     graph_ready: bool
